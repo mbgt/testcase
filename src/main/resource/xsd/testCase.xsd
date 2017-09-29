@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<schema version="1.0"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+        xmlns:tc="testcase"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/jaxb bindingschema_2_0.xsd"
+        targetNamespace="testcase"
+        elementFormDefault="qualified"
+        attributeFormDefault="unqualified" jxb:version="2.1">
+    
+    <annotation>
+        <appinfo>
+            <jxb:schemaBindings>
+                <jxb:package name="ch.mab.tc.jaxb"/>
+            </jxb:schemaBindings>
+        </appinfo>
+    </annotation>
+
+    <element name="inkassoFall" type="tc:inkassoFallType"/>
+
+    <complexType name="inkassoFallType">
+        <sequence>
+            <element name="faktura" minOccurs="0" maxOccurs="1" type="tc:fakturaType"/>
+        </sequence>
+        <attribute name="zpvnr" type="int" />
+        <attribute name="forderungsart" type="string" use="optional"/>
+        <attribute name="forderungjahr" type="int" use="optional"/>
+    </complexType>
+
+    <complexType name="fakturaType">
+        <sequence>
+            <element name="position" minOccurs="0" maxOccurs="9" type="tc:positionType"/>
+        </sequence>
+        <attribute name="valuta" type="string" use="required"/>
+    </complexType>
+
+
+    <complexType name="positionType">
+        <sequence>
+            <element name="kategorie" type="tc:kategorieType"/>
+            <element name="institution" type="tc:institutionType"/>
+            <element name="betrag" type="decimal"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="kategorieType">
+        <attribute name="type" type="string"/>
+        <attribute name="subtype" type="string"/>
+    </complexType>
+
+    <complexType name="institutionType">
+        <attribute name="art" type="string"/>
+        <attribute name="nummer" type="int"/>
+    </complexType>
+</schema>
