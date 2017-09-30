@@ -9,7 +9,8 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 
 /**
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 public class TestcaseTest {
 
     @Parameterized.Parameters(name="{0}")
-    public static Collection<String> loadTests() {
+    public static Collection<String[]> loadTests() {
 
         URL rootUrl = Testcase.class.getResource("/");
 
@@ -28,10 +29,15 @@ public class TestcaseTest {
         return files !=null ?Arrays.stream(files) //
                 .map(File::getPath) //
                 .filter(s->s.endsWith(".xml")) //
-                .collect(Collectors.toList()): Collections.emptyList();
+                .map(s -> new String[]{s.substring(s.lastIndexOf('/')+1), s}) //
+                .collect(toList()) //
+                : Collections.emptyList();
     }
 
-    @Parameterized.Parameter
+    @Parameterized.Parameter(0)
+    public String name;
+
+    @Parameterized.Parameter(1)
     public String resource;
 
     @Test
