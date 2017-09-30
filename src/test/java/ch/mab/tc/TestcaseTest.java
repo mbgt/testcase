@@ -14,22 +14,21 @@ import static java.util.stream.Collectors.toList;
 
 
 /**
- * Created by mab on 30.09.17.
+ * @author Matthias Baumgartner
  */
 @RunWith(Parameterized.class)
 public class TestcaseTest {
 
     @Parameterized.Parameters(name="{0}")
-    public static Collection<String[]> loadTests() {
+    public static Collection<Object[]> loadTests() {
 
         URL rootUrl = Testcase.class.getResource("/");
 
         File[] files = new File(rootUrl.getPath()).listFiles();
 
-        return files !=null ?Arrays.stream(files) //
-                .map(File::getPath) //
-                .filter(s->s.endsWith(".xml")) //
-                .map(s -> new String[]{s.substring(s.lastIndexOf('/')+1), s}) //
+        return files !=null ? Arrays.stream(files) //
+                .filter(file->file.getName().endsWith(".xml")) //
+                .map(file -> new Object[]{file.getName(), file}) //
                 .collect(toList()) //
                 : Collections.emptyList();
     }
@@ -38,10 +37,11 @@ public class TestcaseTest {
     public String name;
 
     @Parameterized.Parameter(1)
-    public String resource;
+    public File resource;
 
     @Test
     public void load() throws Exception {
+        System.out.println(name);
 
         Testcase testcase = new Testcase(resource);
         testcase.execute();

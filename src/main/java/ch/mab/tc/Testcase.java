@@ -8,6 +8,7 @@ package ch.mab.tc;
 import ch.mab.tc.jaxb.InkassoFallType;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
@@ -17,9 +18,9 @@ import java.io.InputStream;
  */
 public class Testcase {
 
-    private String resource;
+    private File resource;
 
-    public Testcase(String resource) {
+    public Testcase(File resource) {
         this.resource = resource;
     }
 
