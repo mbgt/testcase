@@ -5,10 +5,19 @@
  */
 package ch.mab.tc;
 
+import ch.mab.tc.jaxb.InkassoFallType;
+
 /**
  *
  * @author mab
  */
 public class Testcase {
-    
+
+    private InkassoFallType inkassoFall;
+
+    public Testcase(InkassoFallType inkassoFall) {
+        this.inkassoFall = inkassoFall;
+    }
+
+
 }
