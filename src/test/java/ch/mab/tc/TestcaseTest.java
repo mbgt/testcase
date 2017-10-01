@@ -14,7 +14,7 @@ import static java.util.stream.Collectors.toList;
 
 
 /**
- * @author Matthias Baumgartner
+ * @author mab
  */
 @RunWith(Parameterized.class)
 public class TestcaseTest {
