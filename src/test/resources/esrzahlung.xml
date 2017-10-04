@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<inkassoFall xmlns="testcase"
-     forderungjahr="2015">
-    <faktura valuta="2015">
-        <position>
-            <kategorie type="" subtype=""/>
-            <institution art="" nummer="1"/>
-            <betrag>100</betrag>
-        </position>
-    </faktura>
-</inkassoFall>
+<testcase xmlns="testcase"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation='testcase ./xsd/testCase.xsd'>
+    <inkassoFall forderungjahr="2015" zpvnr="zpv1">
+        <faktura id="fk1" valuta="2015">
+            <position>
+                <kategorie type="" subtype=""/>
+                <institution art="" nummer="1"/>
+                <betrag>100</betrag>
+            </position>
+            <position>
+                <kategorie type="" subtype=""/>
+                <institution art="gemeinede" nummer="20"/>
+                <betrag>200</betrag>
+            </position>
+        </faktura>
+    </inkassoFall>
+    <when>
+        <esr art="1" faktura="fk1" />
+    </when>
+</testcase>
