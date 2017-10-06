@@ -34,7 +34,7 @@
                 </executions>
                 <configuration>
                     <sources>
-                        <source>${project.basedir}/src/main/resources/xsd/testCase.xsd</source>
+                        <source>${project.basedir}/src/test/resources/xsd/testCase.xsd</source>
                     </sources>
                 </configuration>
             </plugin>

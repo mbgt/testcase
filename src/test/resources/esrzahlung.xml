@@ -4,7 +4,7 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation='testcase ./xsd/testCase.xsd'>
     <inkassoFall id="ik1" forderungjahr="2015" forderungsart="BST_NP" zpvnr="1">
-        <faktura id="fk11" valuta="2015">
+        <faktura id="fk11" valuta="2015-01-01">
             <position>
                 <kategorie type="" subtype=""/>
                 <institution art="bund" nummer="1"/>
@@ -18,7 +18,7 @@
         </faktura>
     </inkassoFall>
     <inkassoFall id="ik2" forderungjahr="2016" forderungsart="BST_NP" zpvnr="1">
-        <faktura id="fk21" valuta="1.10.2016">
+        <faktura id="fk21" valuta="2016-01-01">
             <position>
                 <kategorie></kategorie>
                 <institution></institution>
@@ -27,7 +27,7 @@
         </faktura>
     </inkassoFall>
     <when>
-        <esr art="1" faktura="fk1" />
+        <esr art="1" faktura="fk11" />
     </when>
     <then></then>
 </testcase>

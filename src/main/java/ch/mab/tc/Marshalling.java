@@ -7,6 +7,7 @@ package ch.mab.tc;
 
 
 import ch.mab.tc.jaxb.InkassoFallType;
+import ch.mab.tc.jaxb.TestcaseType;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -28,13 +29,13 @@ public class Marshalling {
         }
     }
 
-    public InkassoFallType unmarhall(InputStream is) throws JAXBException {
+    public TestcaseType unmarhall(InputStream is) throws JAXBException {
 
         Unmarshaller unmarshaller = context.createUnmarshaller();
 
         JAXBElement root = (JAXBElement) unmarshaller.unmarshal(is);
 
-        return (InkassoFallType) root.getValue();
+        return (TestcaseType) root.getValue();
 
     }
 }

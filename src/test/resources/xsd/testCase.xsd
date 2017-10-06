@@ -23,31 +23,35 @@ and open the template in the editor.
         </appinfo>
     </annotation>
 
+    <element name="testcase" type="tc:testcaseType"/>
+
     <element name="inkassoFall" type="tc:inkassoFallType"/>
 
     <complexType name="inkassoFallType">
         <sequence>
-            <element name="faktura" minOccurs="0" maxOccurs="1" type="tc:fakturaType"/>
+            <element name="faktura" minOccurs="0" type="tc:fakturaType"/>
         </sequence>
+        <attribute name="id" type="ID"/>
         <attribute name="zpvnr" type="int" />
-        <attribute name="forderungsart" type="string" use="optional"/>
-        <attribute name="forderungjahr" type="int" use="optional"/>
+        <attribute name="forderungsart" type="tc:forderungsartType"/>
+        <attribute name="forderungjahr" type="tc:jahrType"/>
     </complexType>
 
     <complexType name="fakturaType">
         <sequence>
             <element name="position" minOccurs="0" maxOccurs="9" type="tc:positionType"/>
         </sequence>
-        <attribute name="valuta" type="string" use="required"/>
+        <attribute name="valuta" type="date" use="required"/>
+        <attribute name="id" type="ID"/>
     </complexType>
 
 
     <complexType name="positionType">
-        <sequence>
+        <all>
             <element name="kategorie" type="tc:kategorieType"/>
             <element name="institution" type="tc:institutionType"/>
             <element name="betrag" type="decimal"/>
-        </sequence>
+        </all>
     </complexType>
 
     <complexType name="kategorieType">
@@ -59,4 +63,51 @@ and open the template in the editor.
         <attribute name="art" type="string"/>
         <attribute name="nummer" type="int"/>
     </complexType>
+
+    <complexType name="testcaseType">
+        <sequence>
+            <element name="inkassoFall" minOccurs="0" maxOccurs="unbounded" type="tc:inkassoFallType"/>
+            <element name="when" type="tc:whenType"/>
+            <element name="then" type="tc:thenType"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="whenType">
+        <all>
+            <element name="esr" type="tc:esrTyp"/>
+        </all>
+    </complexType>
+
+    <complexType name="thenType"></complexType>
+    
+    <complexType name="esrTyp">
+        <attribute name="art" type="tc:esrArtType"/>
+        <attribute name="faktura" type="IDREF"/>
+    </complexType>
+
+    <simpleType name="forderungsartType" >
+        <restriction base="string">
+            <enumeration value="BST_NP"/>
+            <enumeration value="BST_JP"/>
+            <enumeration value="DBS_NP"/>
+            <enumeration value="DBS_JP"/>
+        </restriction>
+    </simpleType>
+     
+    <simpleType name="esrArtType">
+        <restriction base="int">
+            <enumeration value="1"/>
+            <enumeration value="2"/>
+            <enumeration value="3"/>
+            <enumeration value="4"/>
+            <enumeration value="5"/>
+        </restriction>
+    </simpleType>    
+    
+    <simpleType name="jahrType">
+        <restriction base="int">
+            <minInclusive value="2000"/>
+            <maxInclusive value="2100"/>
+        </restriction>
+    </simpleType>
 </schema>
