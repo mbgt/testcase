@@ -6,7 +6,6 @@
 package ch.mab.tc;
 
 
-import ch.mab.tc.jaxb.InkassoFallType;
 import ch.mab.tc.jaxb.TestcaseType;
 
 import javax.xml.bind.JAXBContext;
