@@ -20,6 +20,8 @@
     </annotation>
 
     <element name="testcase" type="tc:testcaseType"/>
+    
+    <element name="kontoauszug" type="tc:kontoauszugType"/>
 
     <complexType name="testcaseType">
         <sequence>
@@ -93,7 +95,6 @@
         </all>
     </complexType>
 
-    <complexType name="thenType"></complexType>
 
     <complexType name="esrTyp">
         <attribute name="art" type="tc:esrArtType"/>
@@ -130,4 +131,20 @@
             <fractionDigits value="2"/>
         </restriction>
     </simpleType>
+
+    <complexType name="thenType">
+        <all>
+            <element name="kontoauszug" type="tc:kontoauszugType"/>
+        </all>
+    </complexType>
+
+    <complexType name="kontoauszugType">
+        <sequence>
+            <element name="valuta" type="date" minOccurs="1"/>
+            <element name="soll" type="string" />
+            <element name="haben" type="string"/>
+            <element name="storno" type="boolean"/>
+            <element name="position" type="tc:positionType" maxOccurs="unbounded" />
+        </sequence>
+    </complexType>
 </schema>

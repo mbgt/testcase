@@ -32,14 +32,13 @@ public class Given {
     }
     
     private void createFall(InkassoFallType inkassoFall) {
-         LOG.info(String.format("Inkassofall %s", inkassoFall.getId()));
+        LOG.info(String.format("Inkassofall %s", inkassoFall.getId()));
          
         inkassoFall.getFaktura().forEach(this::createFaktura);
     }
     
     private void createFaktura(FakturaType faktura) {
         LOG.info(String.format("Faktura %s", faktura.getId()));
-        
     }
     
 }

@@ -20,8 +20,8 @@
     <inkassoFall id="ik2" forderungjahr="2016" forderungsart="BST_NP" zpvnr="1">
         <faktura id="fk21" valuta="2016-01-01">
             <position>
-                <kategorie></kategorie>
-                <institution></institution>
+                <kategorie type="" subtype=""/>
+                <institution art="" nummer=""/>
                 <betrag>300</betrag>
             </position>
         </faktura>
