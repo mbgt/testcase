@@ -5,7 +5,7 @@
  */
 package ch.mab.tc;
 
-
+import ch.mab.tc.jaxb.KontoauszugType;
 import ch.mab.tc.jaxb.TestcaseType;
 
 import javax.xml.bind.JAXBContext;
@@ -13,6 +13,9 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStream;
+import javax.xml.bind.Marshaller;
 
 /**
  *
@@ -35,5 +38,12 @@ public class Marshalling {
         JAXBElement root = (JAXBElement) unmarshaller.unmarshal(is);
 
         return (TestcaseType) root.getValue();
+    }
+
+    public void marshall(KontoauszugType kontoauszug, OutputStream os) throws JAXBException {
+
+        Marshaller marshaller = context.createMarshaller();
+
+        marshaller.marshal(marshaller, os);
     }
 }
