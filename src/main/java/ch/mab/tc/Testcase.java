@@ -5,7 +5,6 @@
  */
 package ch.mab.tc;
 
-import ch.mab.tc.jaxb.InkassoFallType;
 import ch.mab.tc.jaxb.TestcaseType;
 
 import java.io.BufferedInputStream;
@@ -27,9 +26,9 @@ public class Testcase {
     }
 
     public void execute() throws Exception {
-        setup();
-        testcase.getInkassoFall().get(0).getFaktura().getPosition().forEach(position -> System.out.println(position.getBetrag()));
-        
+        testcase = load();
+        Given given = new Given(testcase);
+        given.setup();
     }
 
     private TestcaseType load() throws Exception {
@@ -38,9 +37,5 @@ public class Testcase {
         Marshalling marshalling = new Marshalling();
 
         return marshalling.unmarhall(is);
-    }
-
-    private void setup() throws Exception {
-        testcase = load();
     }
 }

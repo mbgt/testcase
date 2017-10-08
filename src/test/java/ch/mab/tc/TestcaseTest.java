@@ -22,7 +22,7 @@ public class TestcaseTest {
     @Parameterized.Parameters(name="{0}")
     public static Collection<Object[]> loadTests() {
 
-        URL rootUrl = Testcase.class.getResource("/");
+        URL rootUrl = Testcase.class.getResource("/testcase");
 
         File[] files = new File(rootUrl.getPath()).listFiles();
 

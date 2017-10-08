@@ -35,6 +35,5 @@ public class Marshalling {
         JAXBElement root = (JAXBElement) unmarshaller.unmarshal(is);
 
         return (TestcaseType) root.getValue();
-
     }
 }

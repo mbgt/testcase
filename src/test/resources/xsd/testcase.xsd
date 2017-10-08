@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+
+<schema version="1.0"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:tc="testcase"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/jaxb bindingschema_2_0.xsd"
+        targetNamespace="testcase"
+        elementFormDefault="qualified"
+        attributeFormDefault="unqualified"
+        jxb:version="2.1">
+    
+    <annotation>
+        <appinfo>
+            <jxb:schemaBindings>
+                <jxb:package name="ch.mab.tc.jaxb"/>
+            </jxb:schemaBindings>
+        </appinfo>
+    </annotation>
+
+    <element name="testcase" type="tc:testcaseType"/>
+
+    <complexType name="testcaseType">
+        <sequence>
+            <element name="inkassoFall" maxOccurs="unbounded" type="tc:inkassoFallType"/>
+            <element name="when" type="tc:whenType"/>
+            <element name="then" type="tc:thenType"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="inkassoFallType">
+        <sequence>
+            <element name="faktura" minOccurs="0" maxOccurs="unbounded" type="tc:fakturaType"/>
+        </sequence>
+        <attribute name="id" type="ID" use="required"/>
+        <attribute name="zpvnr" type="int" use="required" />
+        <attribute name="forderungsart" type="tc:forderungsartType" use="required"/>
+        <attribute name="forderungjahr" type="tc:jahrType" use="required"/>
+        <attribute name="falllaufnr" type="int"/>
+        <attribute name="bezugsgemeinde" type="string"/>
+        <attribute name="veranlagungscode" type="tc:veranlagungscodeType"/>
+    </complexType>
+
+    <complexType name="fakturaType">
+        <sequence>
+            <element name="position" maxOccurs="unbounded" type="tc:positionType"/>
+        </sequence>
+        <attribute name="id" type="ID" use="required"/>
+        <attribute name="valuta" type="date" use="required"/>
+        <attribute name="belegart" type="tc:belegartType"/>
+    </complexType>
+
+
+    <complexType name="positionType">
+        <all>
+            <element name="kategorie" type="tc:kategorieType"/>
+            <element name="institution" type="tc:institutionType"/>
+            <element name="betrag" type="decimal"/>
+        </all>
+    </complexType>
+
+    <complexType name="kategorieType">
+        <attribute name="type" type="string"/>
+        <attribute name="subtype" type="string"/>
+    </complexType>
+
+    <complexType name="institutionType">
+        <attribute name="art" type="string"/>
+        <attribute name="nummer" type="int"/>
+    </complexType>
+
+    <simpleType name="forderungsartType" >
+        <restriction base="string">
+            <enumeration value="BST_NP"/>
+            <enumeration value="BST_JP"/>
+            <enumeration value="DBS_NP"/>
+            <enumeration value="DBS_JP"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="jahrType">
+        <restriction base="int">
+            <minInclusive value="2000"/>
+            <maxInclusive value="2100"/>
+        </restriction>
+    </simpleType>
+
+    <complexType name="whenType">
+        <all>
+            <element name="esr" type="tc:esrTyp"/>
+            <element name="betrag" type="tc:betragType"/>
+        </all>
+    </complexType>
+
+    <complexType name="thenType"></complexType>
+
+    <complexType name="esrTyp">
+        <attribute name="art" type="tc:esrArtType"/>
+        <attribute name="faktura" type="IDREF"/>
+    </complexType>
+
+    <simpleType name="esrArtType">
+        <restriction base="int">
+            <enumeration value="1"/>
+            <enumeration value="2"/>
+            <enumeration value="3"/>
+            <enumeration value="4"/>
+            <enumeration value="5"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="veranlagungscodeType">
+        <restriction base="string">
+            <enumeration value="orovisorisch"/>
+            <enumeration value="definitv"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="belegartType">
+        <restriction base="string">
+            <enumeration value="rate"/>
+            <enumeration value="provisorisch"/>
+            <enumeration value="schlussabrechnung"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="betragType">
+        <restriction base="decimal">
+            <fractionDigits value="2"/>
+        </restriction>
+    </simpleType>
+</schema>

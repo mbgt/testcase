@@ -2,7 +2,7 @@
 
 <testcase xmlns="testcase"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation='testcase ./xsd/testCase.xsd'>
+          xsi:schemaLocation='testcase.xsd ../xsd/testcase.xsd'>
     <inkassoFall id="ik1" forderungjahr="2015" forderungsart="BST_NP" zpvnr="1">
         <faktura id="fk11" valuta="2015-01-01">
             <position>
@@ -25,9 +25,17 @@
                 <betrag>300</betrag>
             </position>
         </faktura>
+        <faktura  id="fk22" valuta="2017-12-01">
+        <position>
+            <kategorie type="BUND" subtype=""/>
+            <institution art="BUND"/>
+            <betrag>1000</betrag>
+        </position>
+        </faktura>
     </inkassoFall>
     <when>
-        <esr art="1" faktura="fk11" />
+        <esr art="1" faktura="fk11"/>
+        <betrag>900</betrag>
     </when>
     <then></then>
 </testcase>
