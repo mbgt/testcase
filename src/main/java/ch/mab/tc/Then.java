@@ -5,6 +5,9 @@ import ch.mab.tc.jaxb.KategorieType;
 import ch.mab.tc.jaxb.KontoauszugType;
 import ch.mab.tc.jaxb.ObjectFactory;
 import ch.mab.tc.jaxb.PositionType;
+import ch.mab.tc.jaxb.TestcaseType;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
@@ -15,19 +18,17 @@ import java.util.stream.Collectors;
  */
 public class Then {
 
-    private Testcase testcase;
+    private TestcaseType testcase;
     private final ObjectFactory factory = new ObjectFactory();
 
-    public Then(Testcase testcase) {
+    public Then(TestcaseType testcase) {
         this.testcase = testcase;
     }
 
-    public void verify() {
+    public void verify(String kontoauszug) {
         // load kontoauszug
         // save kontoauszug in serialised format
         // compare expected kontoauszug with real kontoauszug
-        ObjectFactory factory = new ObjectFactory();
-        KontoauszugType kontoauszug = factory.createKontoauszugType();
     }
     
     private KontoauszugType transformKontoauszug() {
@@ -59,5 +60,9 @@ public class Then {
         position.setBetrag(BigDecimal.ZERO);
         
         return position;
+    }
+
+    void serializeKontoauszug(String kontoauszug, OutputStream resultOs) throws IOException {
+        resultOs.write("Kontoauszug".getBytes());
     }
 }

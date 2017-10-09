@@ -11,6 +11,8 @@ import java.util.Collection;
 import java.util.Collections;
 
 import static java.util.stream.Collectors.toList;
+import org.junit.Rule;
+import org.junit.rules.TemporaryFolder;
 
 
 /**
@@ -37,13 +39,17 @@ public class TestcaseTest {
     public String name;
 
     @Parameterized.Parameter(1)
-    public File resource;
+    public File testcaseFile;
+    
+    @Rule
+    public TemporaryFolder tempFolder = new TemporaryFolder();
 
     @Test
     public void load() throws Exception {
         System.out.println(name);
 
-        Testcase testcase = new Testcase(resource);
+        File resultFile = tempFolder.newFile(testcaseFile.getName().replace(".xml", ""));
+        Testcase testcase = new Testcase(testcaseFile, resultFile);
         testcase.execute();
     }
 }

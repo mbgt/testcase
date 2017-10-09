@@ -26,8 +26,8 @@ public class Testcase {
     
     private TestcaseType testcase;
 
-    public Testcase(File testcaseFile, File resultFile) {
-        this.testcaseFile = testcaseFile;
+    public Testcase(File gwtFile, File resultFile) {
+        this.testcaseFile = gwtFile;
         this.resultFile = resultFile;
     }
 
