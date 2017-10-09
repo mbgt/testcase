@@ -21,20 +21,34 @@ import java.io.OutputStream;
  */
 public class Testcase {
 
-    private File testcaseFile;
-    private File resultFile;
-    
-    private TestcaseType testcase;
+    private final File testcaseFile;
+    private final File resultFile;
+  
 
-    public Testcase(File gwtFile, File resultFile) {
-        this.testcaseFile = gwtFile;
+    public Testcase(File testcaseFile, File resultFile) {
+        this.testcaseFile = testcaseFile;
         this.resultFile = resultFile;
     }
 
     public void execute() throws Exception {
-        testcase = load();
-        setup();
+        TestcaseType given = given();
+        when(given);
+        then(given);
+    }
+
+    private TestcaseType given() throws Exception {
+        TestcaseType testcase = load();
         
+        Given given = new Given(testcase);
+        
+        given.setup();
+        return testcase;
+    }
+    
+    private void when(TestcaseType testcase) {
+    }
+    
+    private void then(TestcaseType testcase) {
         Then then = new Then(testcase);
         String kontoauszug = readKontoauszug();
         try (OutputStream resultOs = new BufferedOutputStream(new FileOutputStream(resultFile))) {   
@@ -43,16 +57,7 @@ public class Testcase {
         catch (Exception ex) {
             throw new RuntimeException("Failed to serialize Kontoauszug", ex);
         }
-       
         then.verify(kontoauszug);
-    }
-
-    private void setup() throws Exception {
-        testcase = load();
-        
-        Given given = new Given(testcase);
-        
-        given.setup();
     }
     
     private TestcaseType load() throws Exception {

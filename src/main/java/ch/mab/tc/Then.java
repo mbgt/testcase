@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  */
 public class Then {
 
-    private TestcaseType testcase;
+    private final TestcaseType testcase;
     private final ObjectFactory factory = new ObjectFactory();
 
     public Then(TestcaseType testcase) {
