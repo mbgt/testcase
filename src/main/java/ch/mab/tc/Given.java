@@ -40,5 +40,4 @@ public class Given {
     private void createFaktura(FakturaType faktura) {
         LOG.info(String.format("Faktura %s", faktura.getId()));
     }
-    
 }

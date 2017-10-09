@@ -30,6 +30,26 @@
                     </sources>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>xml-maven-plugin</artifactId>
+                <version>1.0.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>transform</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <transformationSets>
+                        <transformationSet>
+                            <dir>src/test/resources/testcase</dir>
+                            <stylesheet>src/test/resources/xslt/testcase.xsl</stylesheet>
+                        </transformationSet>
+                    </transformationSets>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     
@@ -47,7 +67,7 @@
         </dependency>
         
         <dependency>
-             <groupId>org.apache.logging.log4j</groupId>
+            <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>2.6</version>
             <scope>runtime</scope>
