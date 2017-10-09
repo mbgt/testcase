@@ -8,9 +8,12 @@ package ch.mab.tc;
 import ch.mab.tc.jaxb.TestcaseType;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  *
@@ -18,24 +21,50 @@ import java.io.InputStream;
  */
 public class Testcase {
 
-    private File resource;
+    private File testcaseFile;
+    private File resultFile;
+    
     private TestcaseType testcase;
 
-    public Testcase(File resource) {
-        this.resource = resource;
+    public Testcase(File testcaseFile, File resultFile) {
+        this.testcaseFile = testcaseFile;
+        this.resultFile = resultFile;
     }
 
     public void execute() throws Exception {
         testcase = load();
-        Given given = new Given(testcase);
-        given.setup();
+        setup();
+        
+        Then then = new Then(testcase);
+        String kontoauszug = readKontoauszug();
+        try (OutputStream resultOs = new BufferedOutputStream(new FileOutputStream(resultFile))) {   
+            then.serializeKontoauszug(kontoauszug, resultOs);
+        }
+        catch (Exception ex) {
+            throw new RuntimeException("Failed to serialize Kontoauszug", ex);
+        }
+       
+        then.verify(kontoauszug);
     }
 
+    private void setup() throws Exception {
+        testcase = load();
+        
+        Given given = new Given(testcase);
+        
+        given.setup();
+    }
+    
     private TestcaseType load() throws Exception {
-        InputStream is =  new BufferedInputStream(new FileInputStream(resource));
+        InputStream is =  new BufferedInputStream(new FileInputStream(testcaseFile));
 
         Marshalling marshalling = new Marshalling();
 
         return marshalling.unmarhall(is);
+    }
+
+    private String readKontoauszug() {
+        
+        return "Kontoauszug";
     }
 }
