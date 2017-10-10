@@ -19,10 +19,10 @@
         </appinfo>
     </annotation>
 
-    <element name="testcase" type="tc:testcaseType"/>
-    
     <element name="kontoauszug" type="tc:kontoauszugType"/>
 
+    <element name="testcase" type="tc:testcaseType"/>
+    
     <complexType name="testcaseType">
         <sequence>
             <element name="inkassoFall" maxOccurs="unbounded" type="tc:inkassoFallType"/>

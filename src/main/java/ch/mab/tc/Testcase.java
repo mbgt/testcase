@@ -22,12 +22,14 @@ import java.io.OutputStream;
 public class Testcase {
 
     private final File testcaseFile;
-    private final File resultFile;
+    private final File xmlResult;
+    private final File htmlResult;
   
 
-    public Testcase(File testcaseFile, File resultFile) {
+    public Testcase(File testcaseFile, File resultFile, File htmlResult) {
         this.testcaseFile = testcaseFile;
-        this.resultFile = resultFile;
+        this.xmlResult = resultFile;
+        this.htmlResult = htmlResult;
     }
 
     public void execute() throws Exception {
@@ -50,8 +52,10 @@ public class Testcase {
     private void then(Given given) {
         Then then = new Then(given);
         String kontoauszug = readKontoauszug();
-        try (OutputStream resultOs = new BufferedOutputStream(new FileOutputStream(resultFile))) {   
-            then.serializeKontoauszug(kontoauszug, resultOs);
+        try (OutputStream xmlOutputStream = new BufferedOutputStream(new FileOutputStream(xmlResult));
+             OutputStream htmlOutputStream = new BufferedOutputStream(new FileOutputStream(htmlResult))) {   
+            then.serializeKontoauszug(kontoauszug, xmlOutputStream);
+            then.transformKontoauszug(kontoauszug, htmlOutputStream);
         }
         catch (Exception ex) {
             throw new RuntimeException("Failed to serialize Kontoauszug", ex);

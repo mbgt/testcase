@@ -13,10 +13,8 @@ import ch.mab.tc.jaxb.InkassoFallType;
 import ch.mab.tc.jaxb.PositionType;
 import ch.mab.tc.jaxb.TestcaseType;
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import javax.xml.datatype.XMLGregorianCalendar;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,6 +28,7 @@ public class Given {
     private static final Logger LOG = LogManager.getLogger(Given.class);
 
     private final TestcaseType testcase;
+    
     private List<InkassoFall> faelle;
 
     public Given(TestcaseType testcase) {
@@ -46,6 +45,10 @@ public class Given {
         faelle = testcase.getInkassoFall().stream()
                 .map(this::createFall)
                 .collect(Collectors.toList());
+    }
+
+    public List<InkassoFall> getFaelle() {
+        return faelle;
     }
 
     private InkassoFall createFall(InkassoFallType jaxbInkassoFall) {

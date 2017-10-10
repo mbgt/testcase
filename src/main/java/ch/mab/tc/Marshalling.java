@@ -43,6 +43,6 @@ public class Marshalling {
 
         Marshaller marshaller = context.createMarshaller();
 
-        marshaller.marshal(marshaller, os);
+        marshaller.marshal(kontoauszug, os);
     }
 }

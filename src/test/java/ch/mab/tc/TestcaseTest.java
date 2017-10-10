@@ -48,8 +48,9 @@ public class TestcaseTest {
     public void load() throws Exception {
         System.out.println(name);
 
-        File resultFile = tempFolder.newFile(testcaseFile.getName().replace(".xml", ""));
-        Testcase testcase = new Testcase(testcaseFile, resultFile);
+        File xmlFile = tempFolder.newFile("actualKontoauszug.xml");
+        File htmlFile = tempFolder.newFile("actualKontoauszug.html");
+        Testcase testcase = new Testcase(testcaseFile, xmlFile, htmlFile);
         testcase.execute();
     }
 }
