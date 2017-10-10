@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.xml.bind.JAXBElement;
 import javax.xml.transform.stream.StreamSource;
 
 /**
@@ -46,7 +47,7 @@ public class Then {
         // compare expected kontoauszug with real kontoauszug
     }
     
-    private KontoauszugType jaxbKontoauszug() {
+    private JAXBElement<KontoauszugType> jaxbKontoauszug() {
         KontoauszugType kontoauszug = factory.createKontoauszugType();
         
         List<String> belege = Collections.singletonList("belege");
@@ -55,7 +56,7 @@ public class Then {
                 .collect(Collectors.toList());
         kontoauszug.getPosition().addAll(positionen);
         
-        return kontoauszug;
+        return factory.createKontoauszug(kontoauszug);
     }
     
     private PositionType jaxbPosition(String position) {
@@ -79,7 +80,7 @@ public class Then {
 
     void serializeKontoauszug(String kontoauszug, OutputStream resultOs) throws Exception {
         
-        KontoauszugType jaxbKontoauszug = jaxbKontoauszug();
+        JAXBElement<KontoauszugType> jaxbKontoauszug = jaxbKontoauszug();
         
         Marshalling marshalling = new Marshalling();
         

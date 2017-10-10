@@ -39,10 +39,10 @@ public class Marshalling {
         return (TestcaseType) root.getValue();
     }
 
-    public void marshall(KontoauszugType kontoauszug, OutputStream os) throws JAXBException {
+    public void marshall(JAXBElement<KontoauszugType> kontoauszug, OutputStream os) throws JAXBException {
 
         Marshaller marshaller = context.createMarshaller();
-
+        
         marshaller.marshal(kontoauszug, os);
     }
 }
