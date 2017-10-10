@@ -18,11 +18,12 @@ import java.util.stream.Collectors;
  */
 public class Then {
 
-    private final TestcaseType testcase;
+    private final Given given;
     private final ObjectFactory factory = new ObjectFactory();
 
-    public Then(TestcaseType testcase) {
-        this.testcase = testcase;
+
+    Then(Given given) {
+        this.given = given;
     }
 
     public void verify(String kontoauszug) {

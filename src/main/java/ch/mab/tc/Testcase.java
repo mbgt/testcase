@@ -31,23 +31,24 @@ public class Testcase {
     }
 
     public void execute() throws Exception {
-        TestcaseType given = given();
+        Given given = given();
         when(given);
         then(given);
     }
 
-    private TestcaseType given() throws Exception {
-        TestcaseType testcase = load();
+    private Given given() throws Exception {
+        TestcaseType testcase = loadTestcase();
         Given given = new Given(testcase);
         given.setup();
-        return testcase;
+        return given;
     }
     
-    private void when(TestcaseType testcase) {
+    private void when(Given given) {
+       
     }
     
-    private void then(TestcaseType testcase) {
-        Then then = new Then(testcase);
+    private void then(Given given) {
+        Then then = new Then(given);
         String kontoauszug = readKontoauszug();
         try (OutputStream resultOs = new BufferedOutputStream(new FileOutputStream(resultFile))) {   
             then.serializeKontoauszug(kontoauszug, resultOs);
@@ -58,7 +59,7 @@ public class Testcase {
         then.verify(kontoauszug);
     }
     
-    private TestcaseType load() throws Exception {
+    private TestcaseType loadTestcase() throws Exception {
         InputStream is =  new BufferedInputStream(new FileInputStream(testcaseFile));
 
         Marshalling marshalling = new Marshalling();

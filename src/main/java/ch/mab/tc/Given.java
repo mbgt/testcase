@@ -5,13 +5,19 @@
  */
 package ch.mab.tc;
 
+import ch.mab.domain.Faktura;
+import ch.mab.domain.FakturaPosition;
+import ch.mab.domain.InkassoFall;
 import ch.mab.tc.jaxb.FakturaType;
 import ch.mab.tc.jaxb.InkassoFallType;
 import ch.mab.tc.jaxb.PositionType;
 import ch.mab.tc.jaxb.TestcaseType;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import javax.xml.datatype.XMLGregorianCalendar;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,34 +26,58 @@ import org.apache.logging.log4j.Logger;
  * @author mab
  */
 public class Given {
-    
+
     private static final Logger LOG = LogManager.getLogger(Given.class);
-    
-    private TestcaseType testcase;
-    
+
+    private final TestcaseType testcase;
+    private List<InkassoFall> faelle;
+
     public Given(TestcaseType testcase) {
         this.testcase = testcase;
     }
-    
+
+    public TestcaseType getTestcase() {
+        return testcase;
+    }
+
     public void setup() {
         LOG.info("create testcase");
-       
-        testcase.getInkassoFall().forEach(this::createFall);
+
+        faelle = testcase.getInkassoFall().stream()
+                .map(this::createFall)
+                .collect(Collectors.toList());
+    }
+
+    private InkassoFall createFall(InkassoFallType jaxbInkassoFall) {
+        LOG.info(String.format("Inkassofall %s", jaxbInkassoFall.getId()));
+
+        InkassoFall inkassoFall = new InkassoFall(jaxbInkassoFall.getId(), jaxbInkassoFall.getForderungsart().value(), 0);
+
+        List<Faktura> faktura = jaxbInkassoFall.getFaktura().stream()
+                .map(this::createFaktura)
+                .collect(Collectors.toList());
+        inkassoFall.getFaktura().addAll(faktura);
+        return  inkassoFall;
     }
     
-    private void createFall(InkassoFallType inkassoFall) {
-        LOG.info(String.format("Inkassofall %s", inkassoFall.getId()));
-         
-        inkassoFall.getFaktura().forEach(this::createFaktura);
-    }
-    
-    private void createFaktura(FakturaType faktura) {
-        LOG.info(String.format("Faktura %s", faktura.getId()));
+    private Faktura createFaktura(FakturaType jaxbFaktura) {
+        LOG.info(String.format("Faktura %s", jaxbFaktura.getId()));
         
-        List<String> fakturaPositionen = faktura.getPosition().stream().map(this::createPosition).collect(Collectors.toList());
+        XMLGregorianCalendar valuta = jaxbFaktura.getValuta();
+        LocalDate localValuta = LocalDate.of(valuta.getYear(), valuta.getMonth(), valuta.getDay());
+        Faktura faktura = new Faktura(jaxbFaktura.getId(), jaxbFaktura.getBelegart() != null ? jaxbFaktura.getBelegart().value() : "", localValuta);
+
+        List<FakturaPosition> fakturaPositionen = jaxbFaktura.getPosition().stream() //
+                .map(this::createPosition) //
+                .collect(Collectors.toList());
+        faktura.getPositionen().addAll(fakturaPositionen);
+        return faktura;
     }
-    
-    private String createPosition(PositionType position) {
-        return "";
+
+    private FakturaPosition createPosition(PositionType position) {
+        return new FakturaPosition(position.getKategorie().getType(),
+                position.getInstitution().getArt(),
+                position.getInstitution().getNummer() != null ? position.getInstitution().getNummer() : 0,
+                position.getBetrag());
     }
 }

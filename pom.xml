@@ -45,6 +45,9 @@
                     <transformationSets>
                         <transformationSet>
                             <dir>src/test/resources/testcase</dir>
+                            <includes>
+                                <include>*.xml</include>
+                            </includes>
                             <stylesheet>src/test/resources/xslt/testcase.xsl</stylesheet>
                         </transformationSet>
                     </transformationSets>

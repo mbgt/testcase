@@ -4,7 +4,7 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation='testcase.xsd ../xsd/testcase.xsd'>
     <inkassoFall id="ik1" forderungjahr="2015" forderungsart="BST_NP" zpvnr="1">
-        <faktura id="fk11" valuta="2015-01-01">
+        <faktura id="fk11" valuta="2015-01-01" belegart="schlussrechnung">
             <position>
                 <kategorie type="t1" subtype="s1"/>
                 <institution art="bund" nummer="1"/>
@@ -18,19 +18,19 @@
         </faktura>
     </inkassoFall>
     <inkassoFall id="ik2" forderungjahr="2016" forderungsart="BST_NP" zpvnr="1">
-        <faktura id="fk21" valuta="2016-01-01">
+        <faktura id="fk21" valuta="2016-01-01" belegart="provSteuerrechnung">
             <position>
                 <kategorie type="t3" subtype="s3"/>
                 <institution art="gemeinde" nummer="30"/>
                 <betrag>300</betrag>
             </position>
         </faktura>
-        <faktura  id="fk22" valuta="2017-12-01">
-        <position>
-            <kategorie type="t4" subtype="s4"/>
-            <institution art="BUND"/>
-            <betrag>1000</betrag>
-        </position>
+        <faktura  id="fk22" valuta="2017-12-01" belegart="schlussabrechnung">
+            <position>
+                <kategorie type="t4" subtype="s4"/>
+                <institution art="BUND"/>
+                <betrag>1000</betrag>
+            </position>
         </faktura>
     </inkassoFall>
     <when>
