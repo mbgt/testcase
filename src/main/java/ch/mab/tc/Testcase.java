@@ -38,9 +38,7 @@ public class Testcase {
 
     private TestcaseType given() throws Exception {
         TestcaseType testcase = load();
-        
         Given given = new Given(testcase);
-        
         given.setup();
         return testcase;
     }

@@ -7,7 +7,11 @@ package ch.mab.tc;
 
 import ch.mab.tc.jaxb.FakturaType;
 import ch.mab.tc.jaxb.InkassoFallType;
+import ch.mab.tc.jaxb.PositionType;
 import ch.mab.tc.jaxb.TestcaseType;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -39,5 +43,11 @@ public class Given {
     
     private void createFaktura(FakturaType faktura) {
         LOG.info(String.format("Faktura %s", faktura.getId()));
+        
+        List<String> fakturaPositionen = faktura.getPosition().stream().map(this::createPosition).collect(Collectors.toList());
+    }
+    
+    private String createPosition(PositionType position) {
+        return "";
     }
 }
