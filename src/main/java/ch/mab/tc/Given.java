@@ -28,7 +28,7 @@ public class Given {
     private static final Logger LOG = LogManager.getLogger(Given.class);
 
     private final TestcaseType testcase;
-    
+
     private List<InkassoFall> faelle;
 
     public Given(TestcaseType testcase) {
@@ -54,18 +54,18 @@ public class Given {
     private InkassoFall createFall(InkassoFallType jaxbInkassoFall) {
         LOG.info(String.format("Inkassofall %s", jaxbInkassoFall.getId()));
 
-        InkassoFall inkassoFall = new InkassoFall(jaxbInkassoFall.getId(), jaxbInkassoFall.getForderungsart().value(), 0);
+        InkassoFall inkassoFall = new InkassoFall(jaxbInkassoFall.getId(), jaxbInkassoFall.getForderungsart().value(), jaxbInkassoFall.getForderungjahr().getValue());
 
         List<Faktura> faktura = jaxbInkassoFall.getFaktura().stream()
                 .map(this::createFaktura)
                 .collect(Collectors.toList());
         inkassoFall.getFaktura().addAll(faktura);
-        return  inkassoFall;
+        return inkassoFall;
     }
-    
+
     private Faktura createFaktura(FakturaType jaxbFaktura) {
         LOG.info(String.format("Faktura %s", jaxbFaktura.getId()));
-        
+
         XMLGregorianCalendar valuta = jaxbFaktura.getValuta();
         LocalDate localValuta = LocalDate.of(valuta.getYear(), valuta.getMonth(), valuta.getDay());
         Faktura faktura = new Faktura(jaxbFaktura.getId(), jaxbFaktura.getBelegart() != null ? jaxbFaktura.getBelegart().value() : "", localValuta);
