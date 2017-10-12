@@ -54,7 +54,7 @@ public class Given {
     private InkassoFall createFall(InkassoFallType jaxbInkassoFall) {
         LOG.info(String.format("Inkassofall %s", jaxbInkassoFall.getId()));
 
-        InkassoFall inkassoFall = new InkassoFall(jaxbInkassoFall.getId(), jaxbInkassoFall.getForderungsart().value(), jaxbInkassoFall.getForderungjahr().getValue());
+        InkassoFall inkassoFall = new InkassoFall(jaxbInkassoFall.getId(), jaxbInkassoFall.getForderungsart().value(), jaxbInkassoFall.getForderungsjahr().getValue());
 
         List<Faktura> faktura = jaxbInkassoFall.getFaktura().stream()
                 .map(this::createFaktura)

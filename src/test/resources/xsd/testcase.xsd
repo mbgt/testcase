@@ -38,7 +38,7 @@
         <attribute name="id" type="ID" use="required"/>
         <attribute name="zpvnr" type="int" use="required" />
         <attribute name="forderungsart" type="tc:forderungsartType" use="required"/>
-        <attribute name="forderungjahr" type="tc:jahrType" use="required"/>
+        <attribute name="forderungsjahr" type="tc:jahrType" use="required"/>
         <attribute name="falllaufnr" type="int"/>
         <attribute name="bezugsgemeinde" type="string"/>
         <attribute name="veranlagungscode" type="tc:veranlagungscodeType"/>

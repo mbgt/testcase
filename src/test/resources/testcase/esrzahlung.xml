@@ -3,7 +3,7 @@
 <testcase xmlns="testcase"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation='testcase ../xsd/testcase.xsd'>
-    <inkassoFall id="ik1" forderungjahr="2015" forderungsart="BST_NP" zpvnr="1">
+    <inkassoFall id="ik1" forderungsjahr="2015" forderungsart="BST_NP" zpvnr="1">
         <faktura id="fk11" valuta="2015-01-01" belegart="schlussabrechnung">
             <position>
                 <kategorie type="einkommen" subtype="s1"/>
@@ -16,8 +16,14 @@
                 <betrag>200</betrag>
             </position>
         </faktura>
+        <faktura id="fk12" valuta="2016-01-01" belegart="schlussabrechnung">
+            <position>
+                <kategorie type="" subtype=""/>
+                
+            </position>
+        </faktura>
     </inkassoFall>
-    <inkassoFall id="ik2" forderungjahr="2016" forderungsart="BST_NP" zpvnr="1">
+    <inkassoFall id="ik2" forderungsjahr="2016" forderungsart="BST_NP" zpvnr="1">
         <faktura id="fk21" valuta="2016-01-01" belegart="provisorisch">
             <position>
                 <kategorie type="einkommen" subtype="s3"/>

@@ -19,43 +19,50 @@
     
   
     <xsl:template match="tc:inkassoFall">
-        <table width="80%"  >
-            <tr><td>Inkassofall</td><td>Forderungsart</td><td>Forderungsjahr</td></tr>
-          <tr>
-            <td><xsl:value-of select="@id" /></td>
-            <td><xsl:value-of select="@forderungsart" /></td>
-             <td><xsl:value-of select="@forderungsjahr"/></td>
-          </tr>
-        </table>
+        <b>Inkassofall (<xsl:value-of select="@id"/>, 
+                    <xsl:value-of select="@zpvnr" />, 
+                    <xsl:value-of select="@forderungsart" />/
+                    <xsl:value-of select="@forderungsjahr"/>)</b>
         <xsl:apply-templates select="tc:faktura"/>
     </xsl:template>
     
     <xsl:template match="tc:faktura">
-        <table>
-            <tr>
-                <td>Id:</td>
-                <td><xsl:value-of select="@id" /></td>
+        <table width="60%">
+            <tr  style="font-weight:bold" align="left">
+                <td width="10%">Id</td> 
+                <td width="20%">Valuta</td>
+                <td width="20%">Belegart</td>
+                <td width="40%">Kat/Inst</td>
+                <td width="10%*">Betrag</td>
             </tr>
-             <tr>
-                <td>Belegart:</td>
-                <td><xsl:value-of select="@belegart" /></td>
-            </tr>
-             <tr>
-                <td>Valuta:</td>
-                <td><xsl:value-of select="@valuta" /></td>
-            </tr>
+            <xsl:apply-templates select="tc:position" />   
         </table>
-        <xsl:apply-templates select="tc:position" />
     </xsl:template>
     
     <xsl:template match="tc:position">
-        <table width="80%">
-            <tr>
-                <td><xsl:value-of select="tc:kategorie//@type"/>/<xsl:value-of select="tc:kategorie//@subtype"/></td>
-                <td><xsl:value-of select="tc:institution/@art"/>/<xsl:value-of select="tc:institution/@nummer"/></td>
-                <td><xsl:value-of select="tc:betrag/text()" /></td>
-            </tr>
-        </table>
+        <tr>
+            <xsl:if test="position()=1">
+                <td>
+                    <xsl:value-of select="../@id"/>
+                </td>
+                <td>
+                    <xsl:value-of select="../@valuta"/>
+                </td>
+                <td>
+                    <xsl:value-of select="../@belegart"/>
+                </td>
+            </xsl:if>
+            <xsl:if test="position()!=1">
+                <td colspan="3"/>
+            </xsl:if>
+            <td>
+                <xsl:value-of select="tc:kategorie//@type"/>/<xsl:value-of select="tc:kategorie//@subtype"/>, 
+                <xsl:value-of select="tc:institution/@art"/>/<xsl:value-of select="tc:institution/@nummer"/>
+            </td>
+            <td align="right">
+                <xsl:value-of select="tc:betrag/text()" />
+            </td>
+        </tr>
     </xsl:template>
 
 </xsl:stylesheet>

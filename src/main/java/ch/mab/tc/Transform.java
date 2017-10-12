@@ -7,7 +7,6 @@ package ch.mab.tc;
 
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.time.Year;
 import java.util.Optional;
 import java.util.function.Supplier;
 import javax.xml.transform.Transformer;
@@ -16,7 +15,6 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.bind.DatatypeConverter;
 
 /**
  *
