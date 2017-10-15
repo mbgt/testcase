@@ -16,12 +16,6 @@
                 <betrag>200</betrag>
             </position>
         </faktura>
-        <faktura id="fk12" valuta="2016-01-01" belegart="schlussabrechnung">
-            <position>
-                <kategorie type="" subtype=""/>
-                
-            </position>
-        </faktura>
     </inkassoFall>
     <inkassoFall id="ik2" forderungsjahr="2016" forderungsart="BST_NP" zpvnr="1">
         <faktura id="fk21" valuta="2016-01-01" belegart="provisorisch">
@@ -44,9 +38,7 @@
         <betrag>900</betrag>
     </when>
     <then>
-        <kontoauszug> 
-            <valuta>2017-01-01</valuta>
-            <konto>V_BST</konto>
+        <kontoauszug valuta="2017-01-01" belegart="rate" konto="V_BST">
             <position>
                 <kategorie type="einkommen"/>
                 <institution art="bund"/>

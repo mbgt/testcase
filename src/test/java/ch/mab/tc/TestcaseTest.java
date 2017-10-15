@@ -1,6 +1,8 @@
 package ch.mab.tc;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
@@ -16,8 +18,6 @@ import java.util.Collections;
 import java.util.function.Consumer;
 
 import static java.util.stream.Collectors.toList;
-import org.junit.Rule;
-import org.junit.rules.TemporaryFolder;
 
 /**
  * @author mab
@@ -29,7 +29,7 @@ public class TestcaseTest {
 
     private static final String RESULT_DIR = "esrZahlung" + FORMATTER.format(LocalDateTime.now());
 
-    @Parameterized.Parameters(name = "{0}")
+    @Parameterized.Parameters(name = "{index}:{0}")
     public static Collection<Object[]> loadTests() {
 
         URL rootUrl = Testcase.class.getResource("/testcase");
@@ -56,8 +56,8 @@ public class TestcaseTest {
     public void execute() throws Exception {
         System.out.println(name);
 
-        File xmlFile = tempFolder.newFile("kontoauszug.xml");
-        File htmlFile = tempFolder.newFile("kontoauszug.html");
+        File xmlFile = tempFolder.newFile(name);
+        File htmlFile = tempFolder.newFile(name.replace("xml", "html"));
         Testcase testcase = new Testcase(testcaseFile, xmlFile, htmlFile);
         testcase.execute();
 

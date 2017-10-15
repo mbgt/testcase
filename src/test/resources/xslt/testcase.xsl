@@ -5,31 +5,58 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 version="1.0">
     <xsl:output method="html"/>
+    
+    <xsl:param name="testcase" select=""/>
+    
+    <xsl:variable name="sample" select="document($testcase)"/>
+    
+    <xsl:variable name="style">
+body {font-family: Arial, Helvetica, sans-serif}
+.tc-faktura {margin-top: 6pt; width: 80%}
+.tc-header {font-weight: bold}
+.tc-odd {background-color: lightgrey}
+.tc-row {line-height: 16pt}
+  </xsl:variable>
+  
+  <xsl:template match="/">
+      <xsl:if test="$sample/tc:testcase">
+          <xsl:apply-templates select="$sample/tc:testcase"/>
+          <h3>Kontoauszug aktuell</h3>
+          <xsl:apply-templates select="tc:kontoauszug"/>
+      </xsl:if>
+      <xsl:if test="tc:testcase">
+           <xsl:apply-templates select="tc:testcase"/>
+      </xsl:if>
+  </xsl:template>
 
     <xsl:template match="tc:testcase">
         <html>
             <head>
+                <style><xsl:value-of select="$style"/></style>
                 <title>Testfall</title>
             </head>
             <body>
+                <h3>Testfall</h3>
                 <xsl:apply-templates select="tc:inkassoFall"/>
+                <h3>Kontoauszug expected</h3>
+                <xsl:apply-templates select="tc:then/tc:kontoauszug"/>
             </body>
         </html>
     </xsl:template>
     
   
     <xsl:template match="tc:inkassoFall">
-        <b>Inkassofall (<xsl:value-of select="@id"/>, 
+        <h3>Inkassofall (<xsl:value-of select="@id"/>, 
                     <xsl:value-of select="@zpvnr" />, 
                     <xsl:value-of select="@forderungsart" />/
-                    <xsl:value-of select="@forderungsjahr"/>)</b>
+                    <xsl:value-of select="@forderungsjahr"/>)</h3>
         <xsl:apply-templates select="tc:faktura"/>
     </xsl:template>
     
-    <xsl:template match="tc:faktura">
-        <table width="60%">
-            <tr  style="font-weight:bold" align="left">
-                <td width="10%">Id</td> 
+    <xsl:template match="tc:faktura | tc:kontoauszug">
+        <table class="tc-faktura">
+            <tr class="tc-row tc-header">
+                <td width="10%"><xsl:value-of select="@id"/></td> 
                 <td width="20%">Valuta</td>
                 <td width="20%">Belegart</td>
                 <td width="40%">Kat/Inst</td>
@@ -39,11 +66,14 @@
         </table>
     </xsl:template>
     
+    
     <xsl:template match="tc:position">
-        <tr>
+        <xsl:variable name="odd" select="position() mod 2"/>
+        <xsl:variable name="toggleClass" select="concat(substring('tc-even', 1, 9*(1-$odd)), substring('tc-odd', 1, 9*$odd))"/>
+        <tr class="tc-row {$toggleClass}">
             <xsl:if test="position()=1">
                 <td>
-                    <xsl:value-of select="../@id"/>
+<!--                    <xsl:value-of select="../@id"/>-->
                 </td>
                 <td>
                     <xsl:value-of select="../@valuta"/>

@@ -55,7 +55,7 @@ public class Testcase {
         try (OutputStream xmlOutputStream = new BufferedOutputStream(new FileOutputStream(xmlResult));
              OutputStream htmlOutputStream = new BufferedOutputStream(new FileOutputStream(htmlResult))) {   
             then.serializeKontoauszug(kontoauszug, xmlOutputStream);
-            then.transformKontoauszug(kontoauszug, htmlOutputStream);
+            then.transformKontoauszug(testcaseFile, kontoauszug, htmlOutputStream);
         }
         catch (Exception ex) {
             throw new RuntimeException("Failed to serialize Kontoauszug", ex);

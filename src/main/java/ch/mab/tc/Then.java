@@ -5,21 +5,17 @@ import ch.mab.tc.jaxb.KategorieType;
 import ch.mab.tc.jaxb.KontoauszugType;
 import ch.mab.tc.jaxb.ObjectFactory;
 import ch.mab.tc.jaxb.PositionType;
-import ch.mab.tc.jaxb.TestcaseType;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 import java.util.stream.Collectors;
 import javax.xml.bind.JAXBElement;
-import javax.xml.transform.stream.StreamSource;
 
 /**
  * Created by mab on 08.10.17.
@@ -87,11 +83,13 @@ public class Then {
         marshalling.marshall(jaxbKontoauszug, resultOs);
     }
     
-    void transformKontoauszug(String kontoauszug, OutputStream resultOs) throws Exception {
+    void transformKontoauszug(File testcaseFile, String kontoauszug, OutputStream resultOs) throws Exception {
         ByteArrayOutputStream byteOutput = new ByteArrayOutputStream();
         serializeKontoauszug(kontoauszug, byteOutput);
         
         ByteArrayInputStream byteInput = new ByteArrayInputStream(byteOutput.toByteArray());
-        transformer.transform(byteInput, resultOs);
+        Properties properties = new Properties();
+        properties.put("testcase", testcaseFile.getPath());
+        transformer.transform(byteInput, properties, resultOs);
     }
 }

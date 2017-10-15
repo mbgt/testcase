@@ -8,7 +8,9 @@ package ch.mab.tc;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Optional;
+import java.util.Properties;
 import java.util.function.Supplier;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -31,11 +33,16 @@ public class Transform {
         this.stylesheet = stylesheet;
     }
 
-    synchronized public void transform(InputStream source, OutputStream result) {
+    synchronized public void transform(InputStream source, Properties properties, OutputStream result) {
         StreamSource xmlSource = new StreamSource(source);
         StreamResult streamResult = new StreamResult(result);
+        Transformer tf = transformer();
         try {
-            transformer().transform(xmlSource, streamResult);
+            tf.setOutputProperty(OutputKeys.METHOD, "html");
+            tf.setOutputProperty(OutputKeys.INDENT, "yes");
+            properties.forEach((key, value) -> tf.setParameter(key.toString(), value));
+            tf.transform(xmlSource, streamResult);
+            
         } catch (TransformerException ex) {
             throw new RuntimeException("Failed to transform", ex);
         }
@@ -44,7 +51,7 @@ public class Transform {
     
    private Transformer transformer() {
         Supplier<Transformer> newTransformer = () -> {
-            try {
+            try  {
                 StreamSource styleSourcce = new StreamSource(stylesheet);
                 return TRANSFORMER_FACTORY.newTransformer(styleSourcce);
             } catch (TransformerConfigurationException ex) {
@@ -52,6 +59,9 @@ public class Transform {
             }
         };
         
-        return transformer.orElseGet(newTransformer);
+        if (!transformer.isPresent()) {
+            transformer = Optional.of(newTransformer.get());
+        }
+        return transformer.get();
     }
 }

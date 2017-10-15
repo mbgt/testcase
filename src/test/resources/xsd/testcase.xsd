@@ -168,10 +168,11 @@
 
     <complexType name="kontoauszugType">
         <sequence>
-            <element name="valuta" type="date" />
-            <element name="konto" type="string" />
-            <element name="storno" type="boolean" minOccurs="0"/>
             <element name="position" type="tc:positionType" maxOccurs="unbounded" />
         </sequence>
+        <attribute name="valuta" type="date" use="required" />
+        <attribute name="belegart" type="tc:belegartType" use="required"/>
+        <attribute name="konto" type="string" />
+        <attribute name="storno" type="boolean"/>
     </complexType>
 </schema>
