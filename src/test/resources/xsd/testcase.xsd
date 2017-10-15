@@ -119,7 +119,6 @@
     <complexType name="whenType">
         <all>
             <element name="esr" type="tc:esrTyp"/>
-            <element name="betrag" type="tc:betragType"/>
         </all>
     </complexType>
 
@@ -127,6 +126,7 @@
     <complexType name="esrTyp">
         <attribute name="art" type="tc:esrArtType"/>
         <attribute name="faktura" type="IDREF"/>
+        <attribute name="betrag" type="tc:betragType"/>
     </complexType>
 
     <simpleType name="esrArtType">

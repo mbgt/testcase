@@ -38,6 +38,7 @@ body {font-family: Arial, Helvetica, sans-serif}
             <body>
                 <h3>Testfall</h3>
                 <xsl:apply-templates select="tc:inkassoFall"/>
+                <xsl:apply-templates select="tc:when/tc:esr"/>
                 <h3>Kontoauszug expected</h3>
                 <xsl:apply-templates select="tc:then/tc:kontoauszug"/>
             </body>
@@ -93,6 +94,11 @@ body {font-family: Arial, Helvetica, sans-serif}
                 <xsl:value-of select="tc:betrag/text()" />
             </td>
         </tr>
+    </xsl:template>
+    
+    <xsl:template match="tc:esr">
+        <h3>Esr-Zahlung: Art=<xsl:value-of select="@art"/>, Faktura=<xsl:value-of select="@faktura"/>
+        , Betrag=<xsl:value-of select="@betrag"/></h3>
     </xsl:template>
 
 </xsl:stylesheet>
