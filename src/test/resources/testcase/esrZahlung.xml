@@ -37,7 +37,7 @@
         <esr art="1" faktura="fk11" betrag="900"/>
     </when>
     <then>
-        <kontoauszug valuta="2017-01-01" belegart="rate" konto="V_BST">
+        <kontoauszug valuta="2017-01-01" belegart="zahlung" konto="V_BST">
             <position>
                 <kategorie type="einkommen"/>
                 <institution art="bund"/>

@@ -41,7 +41,6 @@
         <attribute name="forderungsjahr" type="tc:jahrType" use="required"/>
         <attribute name="falllaufnr" type="int"/>
         <attribute name="bezugsgemeinde" type="string"/>
-        <attribute name="veranlagungscode" type="tc:veranlagungscodeType"/>
     </complexType>
 
     <complexType name="fakturaType">
@@ -50,7 +49,7 @@
         </sequence>
         <attribute name="id" type="ID" use="required"/>
         <attribute name="valuta" type="date" use="required"/>
-        <attribute name="belegart" type="tc:belegartType"/>
+        <attribute name="belegart" type="tc:belegartFakturaType" use="required"/>
     </complexType>
 
 
@@ -106,8 +105,8 @@
         <annotation>
             <appinfo>
                 <jxb:javaType name="java.time.Year" 
-                    parseMethod="ch.mab.tc.TypeConverter.parseYear"
-                    printMethod="ch.mab.tc.TypeConverter.printYear"/>
+                              parseMethod="ch.mab.tc.TypeConverter.parseYear"
+                              printMethod="ch.mab.tc.TypeConverter.printYear"/>
             </appinfo>
         </annotation>
         <restriction base="int">
@@ -146,12 +145,23 @@
         </restriction>
     </simpleType>
 
-    <simpleType name="belegartType">
+    <simpleType name="belegartFakturaType">
         <restriction base="string">
             <enumeration value="rate"/>
             <enumeration value="provisorisch"/>
             <enumeration value="schlussabrechnung"/>
         </restriction>
+    </simpleType>
+    
+    <simpleType name="belegartMinderungType">
+        <restriction base="string">
+            <enumeration value="zahlung"/>
+            <enumeration value="restanz"/>
+        </restriction>
+    </simpleType>
+    
+    <simpleType name="belegartType">
+        <union memberTypes="tc:belegartFakturaType tc:belegartMinderungType"/>
     </simpleType>
 
     <simpleType name="betragType">
