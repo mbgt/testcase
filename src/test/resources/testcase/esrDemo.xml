@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<testcase xmlns="testcase"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation='testcase ../xsd/testcase.xsd'>
+    <inkassoFall id="Ik_1" zpvnr="1" forderungsart="BST_NP" forderungsjahr="2016">
+        <faktura id="Fk_1" valuta="2015-04-01" belegart="provisorische_abrechnung">
+            <position>
+                <kategorie type="einkommenssteuer"/>
+                <institution art="gemeinde" nummer="1234"/>
+                <betrag>300</betrag>
+            </position>
+            <position>
+                <kategorie type="vermoegenssteuer"/>
+                <institution art="gemeinde"/>
+                <betrag>100</betrag>
+            </position>
+        </faktura>
+    </inkassoFall>
+    <when>
+        <esr art="1" betrag="600"/>
+    </when>
+    <then>
+        <kontoauszug valuta="2016-05-01" belegart="zahlung">
+            <position>
+                <kategorie type="einkommenssteuer"/>
+                <institution art="gemeinde" nummer="456"/>
+                <betrag>450</betrag>
+            </position>
+            <position>
+                <kategorie type="vermoegenssteuer"/>
+                <institution art="gemeinde"/>
+                <betrag>150</betrag>
+            </position>
+        </kontoauszug>
+    </then>
+</testcase>

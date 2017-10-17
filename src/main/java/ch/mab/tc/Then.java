@@ -1,21 +1,14 @@
 package ch.mab.tc;
 
-import ch.mab.tc.jaxb.InstitutionType;
-import ch.mab.tc.jaxb.KategorieType;
-import ch.mab.tc.jaxb.KontoauszugType;
-import ch.mab.tc.jaxb.ObjectFactory;
-import ch.mab.tc.jaxb.PositionType;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.InputStream;
-import java.io.OutputStream;
+import ch.mab.tc.jaxb.*;
+
+import javax.xml.bind.JAXBElement;
+import java.io.*;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
-import javax.xml.bind.JAXBElement;
 
 /**
  * Created by mab on 08.10.17.
@@ -50,6 +43,8 @@ public class Then {
         
         List<PositionType> positionen = belege.stream().map(this::jaxbPosition)  //
                 .collect(Collectors.toList());
+
+        kontoauszug.setBelegart("zahlung");
         kontoauszug.getPosition().addAll(positionen);
         
         return factory.createKontoauszug(kontoauszug);
@@ -62,10 +57,9 @@ public class Then {
         KategorieType kategorie = factory.createKategorieType();
         
         institution.setArt("gemeinde");
-        institution.setNummer(10);
+        institution.setNummer(1234);
         
-        kategorie.setType("einnkommen");
-        kategorie.setSubtype("angestellt");
+        kategorie.setType("einkommenssteuer");
         
         jaxbPosition.setKategorie(kategorie);
         jaxbPosition.setInstitution(institution);

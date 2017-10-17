@@ -6,29 +6,29 @@
     <inkassoFall id="ik1" forderungsjahr="2015" forderungsart="BST_NP" zpvnr="1">
         <faktura id="fk11" valuta="2015-01-01" belegart="schlussabrechnung">
             <position>
-                <kategorie type="einkommen" subtype="s1"/>
-                <institution art="bund"/>
+                <kategorie type="einkommenssteuer"/>
+                <institution art="kanton"/>
                 <betrag>100</betrag>
             </position>
             <position>
-                <kategorie type="vermoegen" subtype="s2"/>
-                <institution art="gemeinde" nummer="20"/>
+                <kategorie type="vermoegenssteuer"/>
+                <institution art="kanton" nummer="1"/>
                 <betrag>200</betrag>
             </position>
         </faktura>
     </inkassoFall>
     <inkassoFall id="ik2" forderungsjahr="2016" forderungsart="BST_NP" zpvnr="1">
-        <faktura id="fk21" valuta="2016-01-01" belegart="provisorisch">
+        <faktura id="fk21" valuta="2016-01-01" belegart="provisorische_abrechnung">
             <position>
-                <kategorie type="einkommen" subtype="s3"/>
-                <institution art="gemeinde" nummer="30"/>
+                <kategorie type="einkommenssteuer"/>
+                <institution art="gemeinde" nummer="1234"/>
                 <betrag>300</betrag>
             </position>
         </faktura>
         <faktura  id="fk22" valuta="2017-12-01" belegart="schlussabrechnung">
             <position>
-                <kategorie type="einkommen" subtype="s4"/>
-                <institution art="bund"/>
+                <kategorie type="einkommenssteuer"/>
+                <institution art="gemeinde" nummer="1234"/>
                 <betrag>1000</betrag>
             </position>
         </faktura>
@@ -39,8 +39,8 @@
     <then>
         <kontoauszug valuta="2017-01-01" belegart="zahlung" konto="V_BST">
             <position>
-                <kategorie type="einkommen"/>
-                <institution art="bund"/>
+                <kategorie type="einkommenssteuer"/>
+                <institution art="kanton"/>
                 <betrag>800</betrag>
             </position>
         </kontoauszug>

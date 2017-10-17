@@ -87,7 +87,7 @@ body {font-family: Arial, Helvetica, sans-serif}
                 <td colspan="3"/>
             </xsl:if>
             <td>
-                <xsl:value-of select="tc:kategorie//@type"/>/<xsl:value-of select="tc:kategorie//@subtype"/>, 
+                <xsl:value-of select="tc:kategorie/@type"/>/<xsl:value-of select="tc:kategorie/@subtype"/>,
                 <xsl:value-of select="tc:institution/@art"/>/<xsl:value-of select="tc:institution/@nummer"/>
             </td>
             <td align="right">

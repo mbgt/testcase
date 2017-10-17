@@ -25,9 +25,9 @@
 
     <complexType name="testcaseType">
         <sequence>
-            <element name="inkassoFall" maxOccurs="unbounded" type="tc:inkassoFallType"/>
-            <element name="when" type="tc:whenType"/>
-            <element name="then" type="tc:thenType"/>
+            <element name="inkassoFall" minOccurs="1" maxOccurs="unbounded" type="tc:inkassoFallType"/>
+            <element name="when" type="tc:whenType" minOccurs="1"/>
+            <element name="then" type="tc:thenType" minOccurs="1"/>
         </sequence>
     </complexType>
 
@@ -62,11 +62,48 @@
     </complexType>
 
     <complexType name="kategorieType">
-        <attribute name="type">
+        <attribute name="type" use="required">
             <simpleType>
                 <restriction base="string">
-                    <enumeration value="einkommen"/>
-                    <enumeration value="vermoegen"/>
+                    <enumeration value='betreibungskosten'/>
+                    <enumeration value='einkommenssteuer'/>
+                    <enumeration value='erbschaftssteuer'/>
+                    <enumeration value='feuerwehrdienstersatzabgabe'/>
+                    <enumeration value='geabg'/>
+                    <enumeration value='gebuehren'/>
+                    <enumeration value='gerichtskosten'/>
+                    <enumeration value='grundstueckgewinnsteuer'/>
+                    <enumeration value='gewinnsteuer'/>
+                    <enumeration value='holdingsteuer'/>
+                    <enumeration value='kapitalsteuer'/>
+                    <enumeration value='kirchensteuer'/>
+                    <enumeration value='kosten'/>
+                    <enumeration value='liegenschaftssteuer'/>
+                    <enumeration value='lotteriegewinn'/>
+                    <enumeration value='mahngebuehren'/>
+                    <enumeration value='mehrwertsteuer'/>
+                    <enumeration value='nach_und_strafsteuer'/>
+                    <enumeration value='ordendliche_forderung'/>
+                    <enumeration value='ordnungsbusse'/>
+                    <enumeration value='pastaquell'/>
+                    <enumeration value='provision'/>
+                    <enumeration value='rueckerstattung'/>
+                    <enumeration value='rueckzahlung'/>
+                    <enumeration value='schenkungssteuer'/>
+                    <enumeration value='schwellentelle'/>
+                    <enumeration value='sonderveranlagung'/>
+                    <enumeration value='sonderveranlagung_kapitalleistungsart_5'/>
+                    <enumeration value='uebertrag_von_amtes_wegen'/>
+                    <enumeration value='unendgeldliche_prozessfuehrung'/>
+                    <enumeration value='verguetungszins'/>
+                    <enumeration value='verlustschein'/>
+                    <enumeration value='vermoegenssteuer'/>
+                    <enumeration value='verrechnungssteuer'/>
+                    <enumeration value='verzugszins'/>
+                    <enumeration value='vorauszahlungszins'/>
+                    <enumeration value='wartekonto'/>
+                    <enumeration value='wehrdienstersatzabgabe'/>
+                    <enumeration value='zahlung'/>
                 </restriction>
             </simpleType>
         </attribute>
@@ -74,11 +111,12 @@
     </complexType>
 
     <complexType name="institutionType">
-        <attribute name="art">
+        <attribute name="art" use="required">
             <simpleType>
                 <restriction base="string">
-                    <enumeration value="bund"/>
-                    <enumeration value="gemeinde"/>
+                    <enumeration value='bund'/>
+                    <enumeration value='kanton'/>
+                    <enumeration value='gemeinde'/>
                 </restriction>
             </simpleType>
         </attribute>
@@ -123,9 +161,9 @@
 
 
     <complexType name="esrTyp">
-        <attribute name="art" type="tc:esrArtType"/>
+        <attribute name="art" type="tc:esrArtType" use="required"/>
         <attribute name="faktura" type="IDREF"/>
-        <attribute name="betrag" type="tc:betragType"/>
+        <attribute name="betrag" type="tc:betragType" use="required"/>
     </complexType>
 
     <simpleType name="esrArtType">
@@ -147,16 +185,50 @@
 
     <simpleType name="belegartFakturaType">
         <restriction base="string">
-            <enumeration value="rate"/>
-            <enumeration value="provisorisch"/>
-            <enumeration value="schlussabrechnung"/>
+            <enumeration value='ratenrechnung'/>
+            <enumeration value='registerereignis'/>
+            <enumeration value='schlussabrechnung'/>
+            <enumeration value='partner'/>
+            <enumeration value='trennung'/>
+            <enumeration value='provisorische_abrechnung'/>
+            <enumeration value='provisorische_steuerrechnung'/>
+            <enumeration value='entscheidrechnung'/>
+            <enumeration value='rueckgabe'/>
+            <enumeration value='erlassentscheidrechnung'/>
+            <enumeration value='betreibungskostenrechnung'/>
+            <enumeration value='steuerausscheidung'/>
+            <enumeration value='abrechnung'/>
+            <enumeration value='zinskorrektur'/>
+            <enumeration value='rueckzahlungsrechnung'/>
+            <enumeration value='abschreibungsrechnung'/>
+            <enumeration value='inkasso_auftrag'/>
+            <enumeration value='mahngebuehr'/>
+            <enumeration value='storno'/>
+            <enumeration value='korrektur'/>
+            <enumeration value='reaktivierung'/>
+            <enumeration value='pseudosollstellung'/>
         </restriction>
     </simpleType>
     
     <simpleType name="belegartMinderungType">
         <restriction base="string">
-            <enumeration value="zahlung"/>
-            <enumeration value="restanz"/>
+            <enumeration value='zahlung'/>
+            <enumeration value='verrechnung'/>
+            <enumeration value='rueckzahlung'/>
+            <enumeration value='umbuchung'/>
+            <enumeration value='verrechnungssteuer'/>
+            <enumeration value='verrechnungssteuerumbuchung'/>
+            <enumeration value='abschreibung'/>
+            <enumeration value='restanz'/>
+            <enumeration value='erlass'/>
+            <enumeration value='verguetungszins'/>
+            <enumeration value='provision'/>
+            <enumeration value='vorauszahlungszins'/>
+            <enumeration value='rueckerstattung'/>
+            <enumeration value='uebertrag'/>
+            <enumeration value='abzug'/>
+            <enumeration value='ast'/>
+            <enumeration value='abgerechnete_qst'/>
         </restriction>
     </simpleType>
     
