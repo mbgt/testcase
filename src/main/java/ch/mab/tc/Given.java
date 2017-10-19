@@ -12,12 +12,14 @@ import ch.mab.tc.jaxb.FakturaType;
 import ch.mab.tc.jaxb.InkassoFallType;
 import ch.mab.tc.jaxb.PositionType;
 import ch.mab.tc.jaxb.TestcaseType;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.stream.Collectors;
-import javax.xml.datatype.XMLGregorianCalendar;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -82,5 +84,42 @@ public class Given {
                 position.getInstitution().getArt(),
                 position.getInstitution().getNummer() != null ? position.getInstitution().getNummer() : 0,
                 position.getBetrag());
+    }
+
+
+    private String findDuplicate(List<String> list) {
+
+        Set<String> uniqueItems = new HashSet<>();
+        
+        for (String item : list) {
+              if (uniqueItems.contains(item)) {
+                return item;
+            }
+            else {
+                uniqueItems.add(item);
+            }
+        }
+        
+        Predicate<String> duplicateFilter = item -> {
+            if (uniqueItems.contains(item)) {
+                return true;
+            }
+            else {
+                uniqueItems.add(item);
+            }
+            return false;
+        };
+
+        Optional<String> first = list.stream().filter(duplicateFilter).findFirst();
+
+        return first.orElse(null);
+    }
+
+    public static void main(String[] args) {
+        Given given = new Given(null);
+
+        String duplicate = given.findDuplicate(Arrays.asList(new String[]{"1", "2", "3", "2", "4"}));
+
+        System.out.println(duplicate);
     }
 }
